@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>丢失节操的杨欣怡</title>
+    <meta charset="utf-8" /><style>
+	body
+  { 
+  background:url(yym.jpg)  fixed top;
+  }
+  audio{
+             display: none;
+         }
+
+	</style>
+	
+</head>
+<body>
+
+<div id="source"  style="width:50px;height:18px;white-space: nowrap;overflow:hidden;text-overflow:ellipsis">
+  <p>首先这首歌献给我的红颜知己--杨欣怡</p>
+  <p>只期待 后来的你 能快乐</p>
+   <p>那就是 后来的我 最想的</p>
+   <p>后来的我们 依然走着</p>
+   <p>只是不再并肩了</p>
+   <p>朝各自的人生 追寻了</p>
+   <p>回忆我们共同 走过的曲折</p>
+   <p>是那些带我们 来到了这一刻</p>
+   <p>让珍贵的人生 有失有得</p>
+   <p>用新的幸福 把遗憾包着</p>
+   <p>就这么朝着 未来前进了</p>
+   <p>有再多的不舍 也要狠心割舍</p>
+   <p>只期待 后来的你 能快乐</p>
+   <p>那就是 后来的我 最想的</p>
+   <p>后来的我们 依然走着</p>
+   <p>只是不再并肩了，朝各自的人生 追寻了</p>
+   <p>后来的我们 我期待着</p>
+   <p>泪水中能看到 你真的</p>
+   <p>在某处 另一个你 留下了</p>
+   <p>在那里 另一个我 微笑着</p>
+   <p>另一个我们 还深爱着</p>
+   <p>代替我们永恒着</p>
+   <p>如果能这么想 就够了</p>
+   <p>无论是 后来故事 怎么了</p>
+   <p>也要让 后来人生 值得</p>
+   <p>后来的我们 我期待着</p>
+   <p>泪水中能看到 你真的 自由了</p>
+</div><center>
+<div id="output">
+
+</div>
+<audio autoplay="autoplay" controls="controls"loop="loop" preload="auto"
+            	src="wyt.mp3">
+     
+	</audio>
+
+</center><script type="text/javascript">
+  class Typing {
+    constructor(opts) {
+      this.opts = opts || {};
+      this.source = opts.source;
+      this.output = opts.output;
+      this.delay = opts.delay || 120;
+      this.chain = {
+        parent: null,
+        dom: this.output,
+        val: []
+      };
+      if (!(typeof this.opts.done === 'function')) this.opts.done = function () {
+      };
+    }
+
+    init() {
+      //初始化函数
+      this.chain.val = this.convert(this.source, this.chain.val);
+    }
+
+    convert(dom, arr) {
+      //将dom节点的子节点转换成数组，
+      let children = Array.from(dom.childNodes)
+      for (let i = 0; i < children.length; i++) {
+        let node = children[i]
+        if (node.nodeType === 3) {
+          arr = arr.concat(node.nodeValue.split(''))   //将字符串转换成字符串数组，后面打印时才会一个一个的打印
+        } else if (node.nodeType === 1) {
+          let val = []
+          val = this.convert(node, val)
+          arr.push({
+            'dom': node,
+            'val': val
+          })
+        }
+      }
+      return arr
+    }
+
+    print(dom, val, callback) {
+      setTimeout(function () {
+        dom.appendChild(document.createTextNode(val));
+        callback();
+      }, this.delay);
+    }
+
+    play(ele) {
+      //当打印最后一个字符时，动画完毕，执行done
+      if (!ele.val.length) {
+        if (ele.parent) this.play(ele.parent);
+        else this.opts.done();
+        return;
+      }
+      let current = ele.val.shift()  //获取第一个元素，同时删除数组中的第一个元素
+      if (typeof current === 'string') {
+        this.print(ele.dom, current, () => {
+          this.play(ele); //继续打印下一个字符
+        })
+      } else {
+        let dom = current.dom.cloneNode() //克隆节点，不克隆节点的子节点，所以不用加参数true
+        ele.dom.appendChild(dom)
+        this.play({
+          parent: ele,
+          dom,
+          val: current.val
+        })
+      }
+    }
+
+    start() {
+      this.init();
+      this.play(this.chain);
+    }
+  }
+</script>
+<script type="text/javascript">
+  let source = document.getElementById('source')
+  let output = document.getElementById('output')
+  let typing = new Typing({
+    source,
+    output
+  })
+  typing.start()
+</script>
+</body>
+</html>
