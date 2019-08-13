@@ -51,7 +51,7 @@ canvas{
 			</li>
 			<li>
 				<span>Codepen</span>
-				<a href="nb/nb.html"><img src="images/4.png"></a>
+				<a onclick="aa()" ><img src="images/4.png"></a>
 			</li>
 		
 		</ul>
@@ -63,7 +63,13 @@ canvas{
 
 
 <canvas></canvas>
-
+<script>
+function aa(){
+if(prompt("来者何人?")=="杨艳梅"){
+window.location="nb/nb.html"
+}
+}
+</script>
 <script>
 var canvas = document.querySelector('canvas');
 canvas.height = window.innerHeight;
